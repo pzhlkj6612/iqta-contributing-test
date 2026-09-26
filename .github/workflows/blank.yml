@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
-          path: "$IQTA_ACTION_WORKING_DIR"
+          path: "${{ env.IQTA_ACTION_WORKING_DIR }}"
           # Change these two as per your need.
           repository: jurplel/install-qt-action
           ref: 5527a0292e62299031937ff8360329f5aa5cc6e6
@@ -39,16 +39,16 @@ jobs:
           npm ci
           npm run build
         shell: bash
-        working-directory: "$IQTA_ACTION_WORKING_DIR"
+        working-directory: "${{ env.IQTA_ACTION_WORKING_DIR }}"
 
       # See the root "action.yml" file.
       - name: Use local built internal action (hack)
         run: |
-          sed -i.bak "s|uses: \$/action|uses: ./$IQTA_ACTION_WORKING_DIR/action|" action.yml
+          sed -i.bak "s|uses: \$/action|uses: ./$PWD/action|" action.yml
           diff -u action.yml.bak action.yml || true
           git status --porcelain
         shell: bash
-        working-directory: "$IQTA_ACTION_WORKING_DIR"
+        working-directory: "${{ env.IQTA_ACTION_WORKING_DIR }}"
 
       - run: find ./../
 
