@@ -50,5 +50,7 @@ jobs:
         shell: bash
         working-directory: "$IQTA_ACTION_WORKING_DIR"
 
+      - run: find ./../
+
       - name: Install Qt
         uses: "./$IQTA_ACTION_WORKING_DIR"
