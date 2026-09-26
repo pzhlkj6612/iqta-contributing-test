@@ -18,7 +18,7 @@ jobs:
           - macos-26-intel
     env:
       # Do not mess up anything in our workspace.
-      IQTA_ACTION_WORKING_DIR: $RUNNER_TEMP/iqta-action
+      IQTA_ACTION_WORKING_DIR: ../iqta-action
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
@@ -31,7 +31,6 @@ jobs:
         with:
           node-version: 24
           cache: npm
-          cache-dependency-path: "$IQTA_ACTION_WORKING_DIR/action/"
 
       - name: Build action
         run: |
