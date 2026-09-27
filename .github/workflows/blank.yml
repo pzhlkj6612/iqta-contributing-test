@@ -58,4 +58,4 @@ jobs:
         working-directory: "${{ env.IQTA_WORKING_DIR }}"
 
       - name: Install Qt
-        uses: "./$IQTA_WORKING_DIR"
+        uses: "./../iqta-action"  # no env var allowed.
