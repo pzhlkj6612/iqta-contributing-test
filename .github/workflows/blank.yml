@@ -17,21 +17,22 @@ jobs:
           - macos-26
           - macos-26-intel
     env:
-      # Do not mess up anything in our workspace.
+      # Paths that are not under $GITHUB_WORKSPACE will result in failed "actions/checkout" step.
+      # Paths that are not relative or containing two dots will result in failed "Install Qt" step.
       IQTA_WORKING_DIR: './.iqta-action'
     steps:
-      - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
+          path: "${{ env.IQTA_WORKING_DIR }}"
           # Change these two as per your need.
           repository: 'jurplel/install-qt-action'
           ref: '5527a0292e62299031937ff8360329f5aa5cc6e6'
-          path: "${{ env.IQTA_WORKING_DIR }}"
 
-      # "actions/setup-node" does not allow us to use relative paths for cache.
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: 24
+          cache: npm
+          cache-dependency-path: "${{ env.IQTA_WORKING_DIR }}/action/"
 
       - name: Build action
         run: |
@@ -52,5 +53,5 @@ jobs:
         shell: bash
         working-directory: "${{ env.IQTA_WORKING_DIR }}"
 
-      - name: Install Qt
+      - name: Install Qt with built action
         uses: "./.iqta-action"  # no env var allowed.
