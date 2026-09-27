@@ -26,7 +26,7 @@ jobs:
           # Change these two as per your need.
           repository: 'jurplel/install-qt-action'
           ref: '5527a0292e62299031937ff8360329f5aa5cc6e6'
-          dir: "${{ env.IQTA_WORKING_DIR }}"
+          path: "${{ env.IQTA_WORKING_DIR }}"
 
       # "actions/setup-node" does not allow us to use relative paths for cache.
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
